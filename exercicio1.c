@@ -1,7 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <assert.h>
 #include "exercicio1.h"
 
 
@@ -40,6 +36,7 @@ int main(){
         .tipo_conexao = bidirecional,
         .conexoes = NULL,
     };
+
     grafo_t* ptr = &grafo1;
     grafo_t* ptr2 = (grafo_t*) malloc(sizeof(grafo_t));
    // printf("%d", ptr->tipo_conexao);

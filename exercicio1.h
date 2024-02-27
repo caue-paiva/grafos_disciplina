@@ -1,13 +1,25 @@
 #ifndef EXERCICIO1_H
     #define EXERCICIO1_H
+    #include <stdlib.h>
+    #include <stdio.h>
+    #include <stdbool.h>
+    #include <assert.h>
+    #include <errno.h>
     
     #define GRAU_MAX 2
     #define assert_2ptrs(p1,p2) assert(p1); assert(p2);
+
     #define assert_3ptrs(p1,p2,p3) assert_2ptrs(p1,p2); assert(p3);
+
     #define  max(x, y)  ((x) > (y) ? (x) : (y))
+
     #define  safe_free(ptr) \
       free(ptr);            \
       ptr = NULL
+    
+    #define err_check(X) ({ int _val = (X);(_val == -1) ? \
+                          (printf("ERROR: ("__FILE__") : %d -- %s \n",__LINE__, errno)); \
+                          exit(-1);-1;})
 
 
     typedef struct grafo grafo_t;
