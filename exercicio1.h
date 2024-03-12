@@ -22,7 +22,7 @@
                           exit(-1);-1;})
 
 
-    typedef struct grafo grafo_t;
+    typedef struct no_grafo no_grafo_t;
     typedef enum conexao conexao_t;
     typedef int valor_t;
 
@@ -32,16 +32,18 @@
         saida = 2
     };
 
-    struct grafo {
+    struct no_grafo {
         valor_t valor;
         int num_conexoes;
         conexao_t tipo_conexao;
-        grafo_t** conexoes;
+        no_grafo_t** conexoes;
     };
 
-    bool grafo_criar_no(const valor_t valor, const conexao_t tipo_conexao, const int num_conexoes, grafo_t** conexoes);
-    bool grafo_criar_conexao(const conexao_t tipo_conexao, grafo_t* no1, grafo_t* no2);
-    bool grafo_remover_conexao(grafo_t* no1, grafo_t* no2, grafo_t* no3);
-    bool grafo_apagar(grafo_t** grafo_inicial);
+
+
+    bool grafo_criar_no(const valor_t valor, const conexao_t tipo_conexao, const int num_conexoes, no_grafo_t** conexoes);
+    bool grafo_criar_conexao(const conexao_t tipo_conexao, no_grafo_t* no1, no_grafo_t* no2);
+    bool grafo_remover_conexao(no_grafo_t* no1, no_grafo_t* no2, no_grafo_t* no3);
+    bool grafo_apagar(no_grafo_t** grafo_inicial);
 
 #endif
