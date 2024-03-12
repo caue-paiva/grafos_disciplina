@@ -1,7 +1,4 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "assert.h"
-#include "stdbool.h"
+#include "lista_adja.h"
 
 
 struct no {
@@ -9,17 +6,17 @@ struct no {
     struct no* prox;
 };
 
-struct no_header {
+struct no_header { //header em cada index para apontar o seu número , o proximo grafo ligado e o grafo final da lista encad
     int num_header;
     struct no* prox;
     struct no* final;
 };
 
-typedef struct no NO;
+typedef struct no No;
 typedef struct no_header NoHeader;
 
-NO* grafos_la_criar_no(const int numero) {
-    NO* no = (NO*) malloc(sizeof(NO));
+No* grafos_la_criar_no(const int numero) {
+    No* no = (No*) malloc(sizeof(No));
     assert(no);
 
     no->numero_no = numero;
@@ -34,11 +31,11 @@ NoHeader** grafos_la_criar_lista_headers(const int tam_lista){
     assert(lista_headers);
 
     for (int i = 0 ; i < tam_lista; i++){
-        lista_headers[i] = NULL;
+        lista_headers[i]->prox = NULL; //seta todos os headers com seus números e apontando pra null
+        lista_headers[i]->final = NULL;
         lista_headers[i]->num_header = i;
     }
   
-
     return lista_headers;
 }
 
@@ -51,7 +48,7 @@ NoHeader** grafos_la_realocar_lista(NoHeader**lista_antiga, const int novo_taman
         return nova_lista;
 }
 
-bool grafos_la_adicionar_header(const int numero_header, const NO* no, NoHeader** lista_headers) {
+bool grafos_la_adicionar_no(const int numero_header, const No* no, NoHeader** lista_headers) {
 
      if (lista_headers[numero_header]) //se exister um valor
         return false;
@@ -64,8 +61,8 @@ int main(){
 
     NoHeader** lista_grafos = criar_listas_grafos(3);
 
-    NO* no1 = criar_no(2);
-    NO* no2 = criar_no(3);
+    No* no1 = criar_no(2);
+    No* no2 = criar_no(3);
 
     lista_grafos[0] = no1;
     lista_grafos[0]->prox = no2;
