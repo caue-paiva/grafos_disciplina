@@ -21,8 +21,19 @@ typedef struct no No;
 typedef struct no_header NoHeader;
 typedef struct grafo_la GrafoLa;
 
+//funcao de error handling do input de outras funcoes, como por ex: tentar modificar um no que nao existe no grafo
+void __grafos_la_aux_verificar_input(const uint tam_grafo, const uint valor_no, const uint valor_conexao){
+    if (tam_grafo <= 0 || valor_no <= 0 || valor_conexao <= 0)
+        err_exit("valores do tamanho do grafos ou de nos nao podem ser 0 ou negativo || tam grafo %d , valor no %d , valor conexao %d", tam_grafo,valor_no,valor_conexao);
+
+    if (valor_no > tam_grafo || valor_conexao > tam_grafo)
+        err_exit("Valor do no para ser modificado ou da conexao nao existe no grafo com %d nos  || valor no %d , valor conexao %d", tam_grafo,valor_no,valor_conexao);
+}
+
+
 //codigo para os nos (lista encad) do grafo
-No* __grafos_la_final_lista(const No* no_comeco){
+
+No* __grafos_la_no_final_lista(const No* no_comeco){
     assert(no_comeco);
     No* atual = no_comeco;
 
@@ -33,9 +44,10 @@ No* __grafos_la_final_lista(const No* no_comeco){
     return atual;
 }
 
-No* grafos_la_criar_no(const int numero) {
+No* __grafos_la_no_criar(const int numero) {
     if (numero == 0)
         err_exit("Numero do nos comecam a partir do 1, nao pode ser 0");
+    
     No* no = (No*) malloc(sizeof(No));
     assert(no);
 
@@ -45,7 +57,16 @@ No* grafos_la_criar_no(const int numero) {
     return no;
 }
 
+void __grafos_la_no_destruir(No** no){
+    assert_2ptrs(no,*no);
+
+    free(*no);
+    *no = NULL;
+}
+
+
 //codigo para os headers de cada no (acessar a lista encad)
+
 static NoHeader** __grafos_la_header_criar_lista(const int tam_lista){
     if (tam_lista <= 0)
         err_exit("Tam da lista n pode ser 0 ou negativo");
@@ -64,24 +85,23 @@ static NoHeader** __grafos_la_header_criar_lista(const int tam_lista){
     return lista_headers;
 }
 
-static bool __grafos_la_header_adicionar_no(const int numero_header,No* no, NoHeader** lista_headers) {
-     assert_3ptrs(no,lista_headers,lista_headers[numero_header-1]);
+static bool __grafos_la_header_adicionar_no(const uint numero_header,const uint numero_conexao, NoHeader** lista_headers) {
+     assert_2ptrs(lista_headers,lista_headers[numero_header-1]);
      if (numero_header <= 0)
         err_exit("Numero do nos comecam a partir do 1, nao pode ser 0 ou negativo");
      
      NoHeader* header_atual = lista_headers[numero_header-1];
+     No* novo_no = __grafos_la_no_criar(numero_conexao); //cria um novo no para a nova conexao
 
      if (!header_atual->prox){ //se o NoHeader->prox estiver vazio
-         d_printf("header vazio");
-         header_atual->prox = no; 
-         header_atual->final = no; 
+         header_atual->prox = novo_no; 
+         header_atual->final = novo_no; 
          return true;
      
      }else{ //se o noheader estiver apontando para mais coisas
-          d_printf("header ja tem items");
-          No* final = __grafos_la_final_lista(header_atual->prox);
-          final->prox = no;
-          header_atual->final = no;
+          No* final = __grafos_la_no_final_lista(header_atual->prox);
+          final->prox = novo_no;
+          header_atual->final = novo_no;
           return true;
      }
 }
@@ -106,8 +126,45 @@ static void __grafos_print_conexoes_no(const NoHeader* header){
      printf("\n");
 }
 
+static bool __grafos_la_header_remover_conexao(const uint num_no, const uint num_conexao, NoHeader**lista_headers ){
+     assert(lista_headers);
+
+     NoHeader* header = lista_headers[num_no-1];
+
+     if(!header->prox) //não existem conexoes naquele no
+        return false;
+
+     No* comeco = header->prox; 
+     No* atual = comeco;
+     No* anterior = NULL;
+
+     while(atual){
+
+        if(atual->numero_no == num_conexao){ //achamos o no para remover
+            No* prox = atual->prox; //pode ser NULL
+
+            if (atual == comeco) { //o buscado esta no comeco do header
+                header->prox = prox;
+                __grafos_la_no_destruir(&atual);
+                return true;
+            }
+
+            //o no a ser removido esta no meio da lista
+            anterior->prox = prox; //prox do anterior vira prox do atual
+            __grafos_la_no_destruir(&atual);
+            return true;
+        }
+
+        anterior = atual;
+        atual = atual->prox;
+     }
+
+     return false;
+}
+
 
 //codigo para o TAD grafos em si (que o user vai acessar)
+
 GrafoLa* grafo_la_criar(const uint numero_nos){
     if (numero_nos < 0)
         err_exit("num de nos n pode ser negativo");
@@ -121,21 +178,22 @@ GrafoLa* grafo_la_criar(const uint numero_nos){
     return grafo;
 }
 
-bool grafo_la_adicionar_conexao(const int numero_no, No* nova_conexao, GrafoLa* grafo){
-    if (numero_no == 0)
-        err_exit("Numero do nos comecam a partir do 1, nao pode ser 0");
+bool grafo_la_adicionar_conexao(const uint numero_no, const uint nova_conexao, GrafoLa* grafo){
+    __grafos_la_aux_verificar_input(grafo->num_nos,numero_no,nova_conexao);
 
-    if (numero_no > grafo->num_nos){
-        err_exit("No para add conexao %d nao existe no grafo com %d nos",numero_no,  grafo->num_nos);
-    }
-    if (nova_conexao->numero_no > grafo->num_nos){
-        err_exit("No da nova conexao %d nao existe no grafo com %d nos", nova_conexao->numero_no,  grafo->num_nos);        
-    }
     return __grafos_la_header_adicionar_no(numero_no,nova_conexao,grafo->lista_headers);
+}
+
+bool grafo_la_remover_conexao(const int numero_no, const uint conexao, GrafoLa* grafo){
+    assert(grafo);
+    __grafos_la_aux_verificar_input(grafo->num_nos,numero_no, conexao);
+
+    return __grafos_la_header_remover_conexao(numero_no,conexao,grafo->lista_headers);
 }
 
 
 //funcoes de i/o para o usuário
+
 void grafos_la_print(const GrafoLa* grafo){
      
     NoHeader** lista_headers = grafo->lista_headers;
@@ -146,18 +204,23 @@ void grafos_la_print(const GrafoLa* grafo){
          __grafos_print_conexoes_no(lista_headers[i]);
         
     }
+    printf("\n");
 }
 
 
 int main(){
 
     GrafoLa* grafo = grafo_la_criar(6);
-    No* no1 = grafos_la_criar_no(3);
-    No* no2 = grafos_la_criar_no(5);
 
-    grafo_la_adicionar_conexao(1,no1,grafo);
-    grafo_la_adicionar_conexao(1,no2,grafo);
-    grafo_la_adicionar_conexao(6,no2,grafo);
+    grafo_la_adicionar_conexao(1,3,grafo);
+    grafo_la_adicionar_conexao(1,5,grafo);
+    grafo_la_adicionar_conexao(6,5,grafo);
+
+    grafos_la_print(grafo);
+
+    bool resultado = grafo_la_remover_conexao(1,6,grafo);
+    grafo_la_remover_conexao(1,3,grafo);
+    printf("resultado %d \n", resultado);
 
     grafos_la_print(grafo);
 

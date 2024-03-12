@@ -82,4 +82,15 @@
     typedef unsigned int uint;
 
 
+    /* Design do TAD:
+
+    1) O user apenas vai ser exposto ao tad GrafosLA (grafos com lista de adjacencia)
+
+    2) O TAD internamente é composto por nós (lista encad de arestas) e Nos headers (facilitam o acesso às conexoes), nenhum deles é exposto ao user
+    
+    
+    
+    */
+
+
 #endif
