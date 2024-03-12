@@ -5,8 +5,19 @@
     #include <stdbool.h>
     #include <assert.h>
     #include <errno.h>
+    #include <fcntl.h>
+    #include <string.h>
     
     #define GRAU_MAX 2
+
+    #define deb(X) do {                                       \
+        if ((X) == (X)) {                                      \
+            printf("ERROR: (%s) : %d --\n",__FILE__,__LINE__);  \
+                                                                 \
+        }                                                         \
+        } while (0)
+    
+    //macros
     #define assert_2ptrs(p1,p2) assert(p1); assert(p2);
 
     #define assert_3ptrs(p1,p2,p3) assert_2ptrs(p1,p2); assert(p3);
@@ -14,13 +25,16 @@
     #define  max(x, y)  ((x) > (y) ? (x) : (y))
 
     #define  safe_free(ptr) \
-      free(ptr);            \
+      free(ptr);             \
       ptr = NULL
     
-    #define err_check(X) ({ int _val = (X);(_val == -1) ? \
-                          (printf("ERROR: ("__FILE__") : %d -- %s \n",__LINE__, errno)); \
-                          exit(-1);-1;})
-
+    #define err_check(X) do {                                            \
+        if ((X) == -1) {                                                  \
+            printf("ERROR: (%s) : %d -- %s \n",__FILE__,__LINE__, strerror(errno));\
+            exit(-1);                                                       \
+        }                                                                    \
+        } while (0)
+        //strerror vem do string.h
 
     typedef struct grafo grafo_t;
     typedef enum conexao conexao_t;

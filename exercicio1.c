@@ -2,8 +2,6 @@
 
 
 
-
-
 bool grafo_criar_no(const valor_t valor, const conexao_t tipo_conexao, const int num_conexoes, grafo_t** conexoes) {
     assert(conexoes);
 }
@@ -39,12 +37,14 @@ int main(){
 
     grafo_t* ptr = &grafo1;
     grafo_t* ptr2 = (grafo_t*) malloc(sizeof(grafo_t));
-   // printf("%d", ptr->tipo_conexao);
-    grafo_remover_conexao(ptr2,ptr,NULL);
+    // printf("%d", ptr->tipo_conexao);
+    //grafo_remover_conexao(ptr2,ptr,NULL);
 
-    
+    //int f_result = open("hahah.txt", O_RDONLY);
 
-    
+    deb(2);
+
+
 }
 
 
