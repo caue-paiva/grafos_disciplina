@@ -88,7 +88,8 @@
 
     2) O TAD internamente é composto por nós (lista encad de arestas) e Nos headers (facilitam o acesso às conexoes), nenhum deles é exposto ao user
     
-    
+    3) Para o usuário o numero dos nos começa do 1, mas para lógica interna eles são guardado nos array indexado a partir do 0, então existe lógica
+    interna para lidar com isso
     
     */
 

@@ -33,7 +33,7 @@ void __grafos_la_aux_verificar_input(const uint tam_grafo, const uint valor_no, 
 
 //codigo para os nos (lista encad) do grafo
 
-No* __grafos_la_no_final_lista(const No* no_comeco){
+static No* __grafos_la_no_final_lista(No* no_comeco){
     assert(no_comeco);
     No* atual = no_comeco;
 
@@ -44,7 +44,7 @@ No* __grafos_la_no_final_lista(const No* no_comeco){
     return atual;
 }
 
-No* __grafos_la_no_criar(const int numero) {
+static No* __grafos_la_no_criar(const int numero) {
     if (numero == 0)
         err_exit("Numero do nos comecam a partir do 1, nao pode ser 0");
     
@@ -57,7 +57,7 @@ No* __grafos_la_no_criar(const int numero) {
     return no;
 }
 
-void __grafos_la_no_destruir(No** no){
+static void __grafos_la_no_destruir(No** no){
     assert_2ptrs(no,*no);
 
     free(*no);
@@ -85,7 +85,7 @@ static NoHeader** __grafos_la_header_criar_lista(const int tam_lista){
     return lista_headers;
 }
 
-static bool __grafos_la_header_adicionar_no(const uint numero_header,const uint numero_conexao, NoHeader** lista_headers) {
+static bool __grafos_la_header_adicionar_conexao(const uint numero_header,const uint numero_conexao, NoHeader** lista_headers) {
      assert_2ptrs(lista_headers,lista_headers[numero_header-1]);
      if (numero_header <= 0)
         err_exit("Numero do nos comecam a partir do 1, nao pode ser 0 ou negativo");
@@ -106,7 +106,7 @@ static bool __grafos_la_header_adicionar_no(const uint numero_header,const uint 
      }
 }
 
-NoHeader** grafos_la_realocar_lista(NoHeader**lista_antiga, const int novo_tamanho) {
+static NoHeader** grafos_la_realocar_lista(NoHeader**lista_antiga, const int novo_tamanho) {
         assert(lista_antiga);
 
         NoHeader** nova_lista = (NoHeader**) realloc(lista_antiga, sizeof(NoHeader) * novo_tamanho);
@@ -115,7 +115,7 @@ NoHeader** grafos_la_realocar_lista(NoHeader**lista_antiga, const int novo_taman
         return nova_lista;
 }
 
-static void __grafos_print_conexoes_no(const NoHeader* header){
+static void __grafos_header_print_conexoes_no(const NoHeader* header){
      assert(header);
      No* atual = header->prox;
 
@@ -162,8 +162,44 @@ static bool __grafos_la_header_remover_conexao(const uint num_no, const uint num
      return false;
 }
 
+static bool __grafos_la_header_destruir_conexoes(NoHeader* header){
+            assert(header);
+
+            if(!header->prox) // se o header nao estiver apontando para ngm
+               return false;
+            
+            No* atual = header->prox;
+            No* aux = atual;
+
+            while(atual){
+                atual = atual->prox;
+                __grafos_la_no_destruir(&aux);
+                aux = atual;
+            }
+
+            header->prox = NULL;
+            return true;
+}
+
+//como estamos num vetor e vamos remover um nó , precisamos shiftar eles
+bool __grafo_la_header_shiftar_lista(const uint numero_de_nos,const uint numero_header, NoHeader** lista_headers){
+    assert(lista_headers);
+    // se temos 5 nos -> 0,1,(2),3,4
+    uint num_nos = numero_de_nos - 1; // 5
+    uint num_header = numero_header - 1; // 3 o input comeca de 1, a logica do array comeca do 0
+    
+    for (int i = num_header; i < num_nos; i++ ) { //vamos chegar ate o penultimo elemento
+        lista_headers[i] = lista_headers[i+1];
+    }
+
+    lista_headers[num_nos] = NULL; //não vamos dar free no ponteiro da ultima posicao pq os dados dele devem continuar a existir, mas outra posicao
+
+    return true;
+}
 
 //codigo para o TAD grafos em si (que o user vai acessar)
+
+
 
 GrafoLa* grafo_la_criar(const uint numero_nos){
     if (numero_nos < 0)
@@ -179,18 +215,33 @@ GrafoLa* grafo_la_criar(const uint numero_nos){
 }
 
 bool grafo_la_adicionar_conexao(const uint numero_no, const uint nova_conexao, GrafoLa* grafo){
+    assert(grafo);
     __grafos_la_aux_verificar_input(grafo->num_nos,numero_no,nova_conexao);
 
-    return __grafos_la_header_adicionar_no(numero_no,nova_conexao,grafo->lista_headers);
+    return __grafos_la_header_adicionar_conexao(numero_no,nova_conexao,grafo->lista_headers);
 }
 
-bool grafo_la_remover_conexao(const int numero_no, const uint conexao, GrafoLa* grafo){
+bool grafo_la_remover_conexao(const uint numero_no, const uint conexao, GrafoLa* grafo){
     assert(grafo);
     __grafos_la_aux_verificar_input(grafo->num_nos,numero_no, conexao);
 
     return __grafos_la_header_remover_conexao(numero_no,conexao,grafo->lista_headers);
 }
 
+bool grafo_la_remover_no(const uint numero_no,GrafoLa* grafo) {
+    assert(grafo); 
+    __grafos_la_aux_verificar_input(grafo->num_nos,numero_no,1); //1 pq n temos valor de conexao
+    
+    NoHeader* header = grafo->lista_headers[numero_no-1];
+
+    __grafos_la_header_destruir_conexoes(header); //destruir as conexoes do header que vai ser removido
+    __grafo_la_header_shiftar_lista(grafo->num_nos,numero_no,grafo->lista_headers); //shiftar a lista sequencial
+
+    grafo->num_nos -= 1;
+
+    //criar funcao para remover todas as outras conexoes do no removido dos outros nos, ou usar a funcao que ja existe
+    return true;
+}
 
 //funcoes de i/o para o usuário
 
@@ -201,7 +252,7 @@ void grafos_la_print(const GrafoLa* grafo){
 
     for (int i = 0; i < numero_nos ; i++){
          printf("No: %d ,Conexoes: ", lista_headers[i]->num_header);
-         __grafos_print_conexoes_no(lista_headers[i]);
+         __grafos_header_print_conexoes_no(lista_headers[i]);
         
     }
     printf("\n");
@@ -214,15 +265,18 @@ int main(){
 
     grafo_la_adicionar_conexao(1,3,grafo);
     grafo_la_adicionar_conexao(1,5,grafo);
-    grafo_la_adicionar_conexao(6,5,grafo);
+    grafo_la_adicionar_conexao(6,1,grafo);
+    grafo_la_adicionar_conexao(3,1,grafo);
+    grafo_la_adicionar_conexao(6,3,grafo);
 
     grafos_la_print(grafo);
 
-    bool resultado = grafo_la_remover_conexao(1,6,grafo);
-    grafo_la_remover_conexao(1,3,grafo);
-    printf("resultado %d \n", resultado);
+    grafo_la_remover_no(6,grafo);
+
+  
 
     grafos_la_print(grafo);
+
 
     //printf("%d %d \n", lista_grafos[0]->prox->numero_no, lista_grafos[0]->final->numero_no );
 
