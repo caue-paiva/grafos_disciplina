@@ -11,20 +11,6 @@
 
 //funcoes internas
 
-void __handler_func_input(const int vertex1 , const int vertex2, const Graph* graph){
-     assert(graph);
-
-     if (graph->vertex_list){
-
-
-     }
-
-
-
-
-     
-}
-
 
 //dado um vertice com numero x, ele acha a posicao na lista de vertices (e entao a linha/coluna da matrix) correspodente
 //Pode ser vista com uma funcao de hash 
@@ -97,7 +83,6 @@ void __dealloc_matrix(const int size, int**matrix){
    matrix=NULL;
 }
 
-
 //funcoes externas
 
 Graph* graph_create(){
@@ -146,6 +131,8 @@ bool add_vertex(const int num_vertice, Graph* graph){
 
 bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph){
      assert(graph);
+     if (vertex1 == vertex2)
+        err_exit("Os 2 vertices nao podem ser iguais, vertice1: %d , vertice2: %d", vertex1, vertex2);
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph);
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
@@ -161,6 +148,9 @@ bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph){
 
 bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* graph){
      assert(graph);
+     if (vertex1 == vertex2)
+       err_exit("Os 2 vertices nao podem ser iguais, vertice1: %d , vertice2: %d", vertex1, vertex2);
+
      int new_edge_flag = 1;
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
@@ -180,6 +170,8 @@ bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* gra
 
 bool remove_edge(const int vertex1, const int vertex2, Graph* graph){
      assert(graph);
+     if (vertex1 == vertex2)
+        err_exit("Os 2 vertices nao podem ser iguais, vertice1: %d , vertice2: %d", vertex1, vertex2);
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
@@ -202,9 +194,9 @@ bool remove_edge_smallest_weight(Graph* graph){
 
 //funcoes de input pro user
 
-//return_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
-int* get_adj_vertex(const int vertex, const Graph* graph, int* return_list_size) {
-     assert(graph);
+//get_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
+int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size) {
+     assert_2ptrs(graph,get_list_size);
 
      const int vertex_num = graph->vertex_num;
      int arr_arestas[vertex_num]; //vamos declarar um array temporario na stack para guardar a lista de tam maximo vertex_num
@@ -237,7 +229,7 @@ int* get_adj_vertex(const int vertex, const Graph* graph, int* return_list_size)
          arestas_adja[i] = arr_arestas[i];
      }
 
-     *return_list_size = numero_aresta;
+     *get_list_size = numero_aresta;
 
      return arestas_adja;
 }
@@ -298,18 +290,39 @@ int number_of_edges(const Graph* graph){
     return graph->edge_num;
 }
 
-void __print_vertex_list(const Graph* graph){
+//get_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
+int* get_vertex_list(const Graph* graph, int* get_list_size){
+     assert_2ptrs(graph,get_list_size);
+
+     if (graph->vertex_list == NULL){
+        warn_printf("Lista de vertices vazia, retornando null");
+        return NULL;
+     }
+     
+     int num_vertex = graph->vertex_num;
+     *get_list_size = num_vertex; //coloca o tamanho da lista na variavel apontada por esse ponteiro
+
+     int* return_list = (int*)  malloc(sizeof(int) * num_vertex);
+     assert(return_list);
+
+     for (int i = 0; i < num_vertex; i++){
+        return_list[i] = graph->vertex_list[i];
+     }
+
+     return return_list;
+}
+
+void print_vertex_list(const Graph* graph){
    assert(graph);
 
-   int* vertex_list = graph->vertex_list;
-   if(vertex_list == NULL){
-       warn_printf("lista de vertice e null");
-       return;
-   }
+   int vertex_num;
+   int* vertex_list = get_vertex_list(graph,&vertex_num);
+   if (vertex_list == NULL)
+      return;
 
    printf("Lista de vertices:  ");
-   int num_vertex = graph->vertex_num;
-   for (int i = 0; i < num_vertex; i++){
+  
+   for (int i = 0; i < vertex_num; i++){
       printf("%d ", vertex_list[i]);
    }
 
@@ -326,12 +339,12 @@ int main(){
 
  
    add_edge(5,6,6,g1);
-
    add_edge(5,7,7,g1);
    
-   print_info(g1);
+   print_vertex_list(g1);
+
    
-   print_adj_vertex(5,g1);
+   
    
 
 
