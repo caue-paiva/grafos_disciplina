@@ -33,29 +33,25 @@
 
     typedef struct graph Graph;
 
-    Graph* graph_create();
-    void graph_destroy(Graph** graph);
-    bool add_vertex(const int num_vertice, Graph* graph);
+    Graph* graph_create();  //cria um grafo vazio
+    void remove_graph(Graph** graph); //destroi o grafo e libera a memoria
+    bool add_vertex(const int num_vertice, Graph* graph); //add um vertice no grafo
     
-    bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph);
-    bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* graph);
-    bool remove_edge(const int vertex1, const int vertex2, Graph* graph);
-    bool remove_edge_smallest_weight(Graph* graph);  //ainda precisa implementar essa funcao
+    bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph); //verifica se uma aresta existe
+    bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* graph); //add uma aresta entre 2 vertices
+    bool remove_edge(const int vertex1, const int vertex2, Graph* graph); //remove uma aresta entre 2 vertices
+    bool remove_edge_smallest_weight(Graph* graph);  //remove a aresta com menor peso no grafo
     
-    int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size);
-    void print_adj_vertex(const int vertex, const Graph*graph);
+    int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size); //retorna uma lista de vertices adjancentes a um vertice
+    void print_adj_vertex(const int vertex, const Graph*graph); //printa a lista da funcao acima
     
-    void print_info(const Graph* graph);
+    void print_info(const Graph* graph); //imprime no terminal um desenho da matriz de adjancencia do grafo
    
-    int number_of_vertexes(const Graph* graph);
-    int number_of_edges(const Graph* graph);
+    int number_of_vertexes(const Graph* graph); //retorna numero de vertices
+    int number_of_edges(const Graph* graph); //retorna numero de arestas
    
-    int* get_vertex_list(const Graph* graph, int* get_list_size);
-    void print_vertex_list(const Graph* graph);
+    int* get_vertex_list(const Graph* graph, int* get_list_size); //retorna uma lista de vertices no grafo
+    void print_vertex_list(const Graph* graph); //imprime lista acima
     
-    // add as funcoes externas
-   
-
-
 
 #endif

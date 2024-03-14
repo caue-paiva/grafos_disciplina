@@ -9,6 +9,7 @@ struct graph {
    int edge_num;
 };
 
+//INTERNAL
 //funcoes internas
 
 
@@ -83,8 +84,9 @@ void __dealloc_matrix(const int size, int**matrix){
    matrix=NULL;
 }
 
+//API
+//funcoes externas:
 
-//funcoes externas
 Graph* graph_create(){
    
    Graph* graph = (Graph*) malloc(sizeof(Graph));
@@ -139,6 +141,7 @@ bool add_vertex(const int num_vertice, Graph* graph){
    return graph;
 }
 
+//EDGE
 //funcoes lidando com conexoes/arestas
 
 bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph){
@@ -239,7 +242,9 @@ bool remove_edge_smallest_weight(Graph* graph){
 
 }
 
-//funcoes de input pro user
+//GRAPH DATA
+//Funcoes que retornam listas ou matrizes representando os estado/dados do grafo
+
 
 //get_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
 int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size) {
@@ -280,6 +285,51 @@ int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size) {
 
      return arestas_adja;
 }
+
+int number_of_vertexes(const Graph* graph){
+    assert(graph);
+    return graph->vertex_num;
+}
+
+int number_of_edges(const Graph* graph){
+    assert(graph);
+    return graph->edge_num;
+}
+
+//get_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
+int* get_vertex_list(const Graph* graph, int* get_list_size){
+     assert_2ptrs(graph,get_list_size);
+
+     if (graph->vertex_list == NULL){
+        warn_printf("Lista de vertices vazia, retornando null");
+        return NULL;
+     }
+     
+     int num_vertex = graph->vertex_num;
+     *get_list_size = num_vertex; //coloca o tamanho da lista na variavel apontada por esse ponteiro
+
+     int* return_list = (int*)  malloc(sizeof(int) * num_vertex);
+     assert(return_list);
+
+     for (int i = 0; i < num_vertex; i++){
+        return_list[i] = graph->vertex_list[i];
+     }
+
+     return return_list;
+}
+
+int** adjacency_matrix(const Graph* graph){
+     assert(graph);
+
+     int** return_ma = __realloc_matrix(graph->vertex_num,graph->vertex_num,graph->matrix); //copia a matriz e aloca memoria para a nova copia dela
+     assert(return_ma);
+
+     return return_ma;
+}
+
+
+//I/O
+//funcoes de input pro user
 
 void print_adj_vertex(const int vertex, const Graph*graph){
      assert(graph);
@@ -325,38 +375,8 @@ void print_info(const Graph* graph){
       printf("]\n");
       
     }
-}
 
-int number_of_vertexes(const Graph* graph){
-    assert(graph);
-    return graph->vertex_num;
-}
-
-int number_of_edges(const Graph* graph){
-    assert(graph);
-    return graph->edge_num;
-}
-
-//get_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
-int* get_vertex_list(const Graph* graph, int* get_list_size){
-     assert_2ptrs(graph,get_list_size);
-
-     if (graph->vertex_list == NULL){
-        warn_printf("Lista de vertices vazia, retornando null");
-        return NULL;
-     }
-     
-     int num_vertex = graph->vertex_num;
-     *get_list_size = num_vertex; //coloca o tamanho da lista na variavel apontada por esse ponteiro
-
-     int* return_list = (int*)  malloc(sizeof(int) * num_vertex);
-     assert(return_list);
-
-     for (int i = 0; i < num_vertex; i++){
-        return_list[i] = graph->vertex_list[i];
-     }
-
-     return return_list;
+    printf("Numero de vertices: %d , Numero de arestas bi-direcionais: %d \n", number_of_vertexes(graph), number_of_edges(graph));
 }
 
 void print_vertex_list(const Graph* graph){
@@ -376,14 +396,6 @@ void print_vertex_list(const Graph* graph){
    printf("\n");
 }
 
-int** adjacency_matrix(const Graph* graph){
-     assert(graph);
-
-     int** return_ma = __realloc_matrix(graph->vertex_num,graph->vertex_num,graph->matrix);
-     assert(return_ma);
-
-     return return_ma;
-}
 
 int main(){
 
@@ -404,15 +416,6 @@ int main(){
    remove_edge_smallest_weight(g1);
 
    print_info(g1);
-
-
-   
-   
-   
-
-
-   
-       
 
 
 }
