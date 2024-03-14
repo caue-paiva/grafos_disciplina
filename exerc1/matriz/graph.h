@@ -35,7 +35,7 @@
 
 
     #define NO_EDGE -1 //define para representar a não existencia de uma aresta na matriz de adjacencia com pesos
-    #define VERTEX_LIST_CHUNK 20 //define de quantos em quantos vertices vamos alocar para a lista de vertices
+    #define VERTEX_LIST_CHUNK 2 //define de quantos em quantos vertices vamos alocar para a lista de vertices
    
 
 

@@ -1,13 +1,13 @@
 #include "graph.h"
 
-   typedef struct graph Graph;
+typedef struct graph Graph;
 
-   struct graph {
-      int** matrix;
-      int* vertex_list;
-      int vertex_num;
-      int edge_num;
-   };
+struct graph {
+   int** matrix;
+   int* vertex_list;
+   int vertex_num;
+   int edge_num;
+};
 
 //funcoes internas
 
@@ -100,6 +100,18 @@ Graph* graph_create(){
    graph->vertex_list  = vertex_list;
    
    return graph;
+}
+
+void graph_destroy(Graph** graph){
+     assert_2ptrs(graph,*graph);
+
+     __dealloc_matrix((*graph)->vertex_num, (*graph)->matrix);
+     (*graph)->matrix = NULL;
+
+     free((*graph)->vertex_list);
+     (*graph)->vertex_list = NULL;
+     free(*graph);
+     *graph = NULL;
 }
 
 bool add_vertex(const int num_vertice, Graph* graph){
@@ -342,6 +354,10 @@ int main(){
    add_edge(5,7,7,g1);
    
    print_vertex_list(g1);
+
+   print_info(g1);
+
+   graph_destroy(&g1);
 
    
    
