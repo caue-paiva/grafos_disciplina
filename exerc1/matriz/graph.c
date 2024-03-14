@@ -102,7 +102,7 @@ Graph* graph_create(){
    return graph;
 }
 
-void graph_destroy(Graph** graph){
+void remove_graph(Graph** graph){
      assert_2ptrs(graph,*graph);
 
      __dealloc_matrix((*graph)->vertex_num, (*graph)->matrix);
@@ -148,7 +148,11 @@ bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph){
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph);
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
-     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1); //caso os indexes nao existam gera um erro
+     if (ver1_matrix_posi == -1 || ver2_matrix_posi == -1){
+         warn_printf("nao voi possivel achar o vertice 1 ou vertice 2");
+         return false;
+     }
+    
 
      int edge = graph->matrix[ver1_matrix_posi][ver2_matrix_posi];
 
@@ -167,7 +171,10 @@ bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* gra
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
-     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1); //caso os indexes nao existam gera um erro
+     if (ver1_matrix_posi == -1 || ver2_matrix_posi == -1){
+         warn_printf("nao voi possivel achar o vertice 1 ou vertice 2");
+         return false;
+     }
 
      if (graph->matrix[ver1_matrix_posi][ver2_matrix_posi] != NO_EDGE)
          new_edge_flag = 0;
@@ -187,7 +194,10 @@ bool remove_edge(const int vertex1, const int vertex2, Graph* graph){
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
-     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1); //caso os indexes nao existam gera um erro
+     if (ver1_matrix_posi == -1 || ver2_matrix_posi == -1){
+         warn_printf("nao voi possivel achar o vertice 1 ou vertice 2");
+         return false;
+     }
 
      if(graph->matrix[ver1_matrix_posi][ver2_matrix_posi] == NO_EDGE) //conexao não existe
         return false;
@@ -201,7 +211,32 @@ bool remove_edge(const int vertex1, const int vertex2, Graph* graph){
 }
 
 bool remove_edge_smallest_weight(Graph* graph){
-     assert(graph);
+   assert_2ptrs(graph,graph->matrix);
+
+   const int vertex_num = graph->vertex_num;
+   int smallest_i, smallest_j = -1;
+   smallest_i = -1;
+
+   int smallest_weight = 100000000;
+   for (int i = 0; i < vertex_num; i++){
+          for (int j = 0; j < vertex_num; j++){
+               if (graph->matrix[i][j] != -1 && graph->matrix[i][j] < smallest_weight){
+                   smallest_weight = graph->matrix[i][j];
+                   smallest_i = i;
+                   smallest_j = j;
+               }
+          } 
+   }
+
+   if (smallest_i == -1) //não achou nenhuma aresta no grafo
+      return false;
+
+   graph->matrix[smallest_i][smallest_j] = NO_EDGE;
+   graph->matrix[smallest_j][smallest_i] = NO_EDGE;
+   graph->edge_num -= 1;
+
+   return true;
+
 }
 
 //funcoes de input pro user
@@ -341,6 +376,15 @@ void print_vertex_list(const Graph* graph){
    printf("\n");
 }
 
+int** adjacency_matrix(const Graph* graph){
+     assert(graph);
+
+     int** return_ma = __realloc_matrix(graph->vertex_num,graph->vertex_num,graph->matrix);
+     assert(return_ma);
+
+     return return_ma;
+}
+
 int main(){
 
    Graph* g1 = graph_create();
@@ -350,14 +394,17 @@ int main(){
    add_vertex(8,g1);
 
  
-   add_edge(5,6,6,g1);
+   add_edge(5,6,7,g1);
    add_edge(5,7,7,g1);
-   
-   print_vertex_list(g1);
+
 
    print_info(g1);
 
-   graph_destroy(&g1);
+   int ** matrix = adjacency_matrix(g1);
+   remove_edge_smallest_weight(g1);
+
+   print_info(g1);
+
 
    
    
