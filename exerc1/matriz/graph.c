@@ -245,7 +245,6 @@ bool remove_edge_smallest_weight(Graph* graph){
 //GRAPH DATA
 //Funcoes que retornam listas ou matrizes representando os estado/dados do grafo
 
-
 //get_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
 int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size) {
      assert_2ptrs(graph,get_list_size);
@@ -326,7 +325,6 @@ int** adjacency_matrix(const Graph* graph){
 
      return return_ma;
 }
-
 
 //I/O
 //funcoes de input pro user
