@@ -11,6 +11,20 @@
 
 //funcoes internas
 
+void __handler_func_input(const int vertex1 , const int vertex2, const Graph* graph){
+     assert(graph);
+
+     if (graph->vertex_list){
+
+
+     }
+
+
+
+
+     
+}
+
 
 //dado um vertice com numero x, ele acha a posicao na lista de vertices (e entao a linha/coluna da matrix) correspodente
 //Pode ser vista com uma funcao de hash 
@@ -132,9 +146,10 @@ bool add_vertex(const int num_vertice, Graph* graph){
 
 bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph){
      assert(graph);
+
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph);
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
-     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1);
+     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1); //caso os indexes nao existam gera um erro
 
      int edge = graph->matrix[ver1_matrix_posi][ver2_matrix_posi];
 
@@ -150,7 +165,7 @@ bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* gra
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
-     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1);
+     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1); //caso os indexes nao existam gera um erro
 
      if (graph->matrix[ver1_matrix_posi][ver2_matrix_posi] != NO_EDGE)
          new_edge_flag = 0;
@@ -168,7 +183,7 @@ bool remove_edge(const int vertex1, const int vertex2, Graph* graph){
 
      int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
      int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
-     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1);
+     assert(ver1_matrix_posi != -1 && ver2_matrix_posi != -1); //caso os indexes nao existam gera um erro
 
      if(graph->matrix[ver1_matrix_posi][ver2_matrix_posi] == NO_EDGE) //conexao não existe
         return false;
@@ -186,20 +201,25 @@ bool remove_edge_smallest_weight(Graph* graph){
 }
 
 //funcoes de input pro user
-int *get_adj_vertex(const int vertex, const Graph* graph) {
+
+//return_list_size é uma variavel para guardar o tamanho da lista de retorno em um inteiro
+int* get_adj_vertex(const int vertex, const Graph* graph, int* return_list_size) {
      assert(graph);
 
      const int vertex_num = graph->vertex_num;
      int arr_arestas[vertex_num]; //vamos declarar um array temporario na stack para guardar a lista de tam maximo vertex_num
 
      int ver_matrix_posi = __find_vertex_index(vertex,graph);
+     assert(ver_matrix_posi != -1); //caso o vertice nao existe gera um erro
+     
      int aresta;
      int numero_aresta = 0;
      for (int i = 0; i < vertex_num; i++){
          aresta = graph->matrix[ver_matrix_posi][i];
 
          if (aresta != NO_EDGE){
-            arr_arestas[numero_aresta] = aresta;
+            int connected_vertex = graph->vertex_list[i];
+            arr_arestas[numero_aresta] = connected_vertex;
             numero_aresta +=1;
          }
      }
@@ -209,7 +229,7 @@ int *get_adj_vertex(const int vertex, const Graph* graph) {
          warn_printf("Nao existem arestas conectadas a esse vertice, retornado um ponteiro NULL");
          return NULL;
      }
-
+   
      int* arestas_adja = (int*) malloc(sizeof(int) * numero_aresta);
      assert(arestas_adja);
 
@@ -217,7 +237,23 @@ int *get_adj_vertex(const int vertex, const Graph* graph) {
          arestas_adja[i] = arr_arestas[i];
      }
 
+     *return_list_size = numero_aresta;
+
      return arestas_adja;
+}
+
+void print_adj_vertex(const int vertex, const Graph*graph){
+     assert(graph);
+     int size;
+
+     int* list = get_adj_vertex(vertex,graph,&size);
+     if (list == NULL)
+         return;
+
+     for (int i = 0; i < size; i++){
+          printf("%d ", list[i]);
+     }
+     printf("\n");
 }
 
 void print_info(const Graph* graph){
@@ -293,11 +329,13 @@ int main(){
 
    add_edge(5,7,7,g1);
    
-
    print_info(g1);
+   
+   print_adj_vertex(5,g1);
+   
 
-   __print_vertex_list(g1);
-   printf("%d \n", number_of_edges(g1));
+
+   
        
 
 
