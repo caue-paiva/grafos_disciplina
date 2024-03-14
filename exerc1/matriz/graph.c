@@ -1,6 +1,6 @@
 #include "graph.h"
 
-typedef struct graph Graph;
+
 
 struct graph {
    int** matrix;
@@ -12,8 +12,8 @@ struct graph {
 //funcoes internas
 
 
-//dado um vertice com numero x, ele acha a posicao na lista de vertices (e entao a linha/coluna da matrix) correspodente
-//Pode ser vista com uma funcao de hash 
+//dado um vertice com numero x, ele acha a posicao na lista de vertices (e então a linha/coluna da matriz correspodente)
+//Pode ser vista com uma funcao de hash:  f(vertice_num) -> index da lista/matriz
 int __find_vertex_index(const int vertex_num, const Graph* graph){
    assert(graph);
  
@@ -83,8 +83,8 @@ void __dealloc_matrix(const int size, int**matrix){
    matrix=NULL;
 }
 
-//funcoes externas
 
+//funcoes externas
 Graph* graph_create(){
    
    Graph* graph = (Graph*) malloc(sizeof(Graph));
