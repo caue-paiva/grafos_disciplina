@@ -1,7 +1,5 @@
 #include "graph.h"
 
-
-
 struct graph {
    int** matrix;
    int* vertex_list;
