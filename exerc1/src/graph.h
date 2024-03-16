@@ -52,6 +52,8 @@
    
     int* get_vertex_list(const Graph* graph, int* get_list_size); //retorna uma lista de vertices no grafo
     void print_vertex_list(const Graph* graph); //imprime lista acima
+
+    int** adjacency_matrix(const Graph* graph); //retorna a matriz de adjacencia (uma copia com memoria alocada)
     
 
 #endif

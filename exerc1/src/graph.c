@@ -1,4 +1,4 @@
-#include "../inc/graph.h"
+#include "graph.h"
 
 struct graph {
    int** matrix;
@@ -17,7 +17,7 @@ int __find_vertex_index(const int vertex_num, const Graph* graph){
    assert(graph);
  
    int* vertex_list = graph->vertex_list;
-   int num_of_vertex = graph->vertex_num;
+   const int num_of_vertex = graph->vertex_num;
 
    if(graph->matrix == NULL || vertex_list == NULL){
       return -1;
@@ -31,7 +31,8 @@ int __find_vertex_index(const int vertex_num, const Graph* graph){
    return -1;
 }
 
-int** __realloc_matrix(const int new_size,const int old_size, int**old_matrix) {
+//aloca uma matriz, caso a matriz antiga seja null, cria uma nova vazia, caso não seja, copia os valores da antiga pra nova
+int** __alloc_matrix(const int new_size,const int old_size, int**old_matrix) {
 
       if (old_matrix == NULL) { //criar a matrix pela primeira vez
          int** matrix = (int**) malloc(sizeof(int*) *new_size);
@@ -85,21 +86,33 @@ void __dealloc_matrix(const int size, int**matrix){
 //API
 //funcoes externas:
 
-Graph* graph_create(){
+Graph* graph_create(const int size){
    
    Graph* graph = (Graph*) malloc(sizeof(Graph));
    assert(graph);
 
-   graph->vertex_num = 0;
+   graph->vertex_num = size;
    graph->edge_num = 0;
 
-   graph->matrix = NULL;
-   
-   int* vertex_list = (int*) malloc(sizeof(int) * VERTEX_LIST_CHUNK); //alocando uma lista de inteiros para guardar os vertices em ordem
-   assert(vertex_list);
-   graph->vertex_list  = vertex_list;
-   
+   if (size > 0){
+      graph->matrix = __alloc_matrix(size,size,NULL);
+      const int num_chunks_vertex_list = (size/VERTEX_LIST_CHUNK) + 1; //quantas chunks vamos tem que alocar pra lista que guarda os vertices
+      
+      int* vertex_list = (int*) malloc(sizeof(int) * (VERTEX_LIST_CHUNK * num_chunks_vertex_list)); //alocando uma lista de inteiros para guardar os vertices em ordem
+      assert(vertex_list);
+
+      for (int i = 0; i < size; i++){
+         vertex_list[i] = i+1; //numero dos vertices vao comecar do 1
+      }
+      graph->vertex_list  = vertex_list;
+   } else {
+      graph->matrix = NULL;
+      int* vertex_list = (int*) malloc(sizeof(int) * VERTEX_LIST_CHUNK); //alocando uma lista de inteiros para guardar os vertices em ordem
+      assert(vertex_list);
+      graph->vertex_list  = vertex_list;
+   }
    return graph;
+
 }
 
 void remove_graph(Graph** graph){
@@ -114,13 +127,17 @@ void remove_graph(Graph** graph){
      *graph = NULL;
 }
 
-bool add_vertex(const int num_vertice, Graph* graph){
+bool add_vertex(const int vertex_num, Graph* graph){
    assert(graph);
    
-   int num_vertices_antigo = graph->vertex_num;
-    int** matriz_antiga = graph->matrix; 
+   const int vertex_exists = __find_vertex_index(vertex_num,graph);
+   if (vertex_exists != -1) //se existe um vertice na lista de vertices existente, a operacao retorna false
+       return false;
+   
+   const int num_vertices_antigo = graph->vertex_num;
+   int** matriz_antiga = graph->matrix; 
 
-   graph->matrix = __realloc_matrix(num_vertices_antigo+1,num_vertices_antigo, matriz_antiga);
+   graph->matrix = __alloc_matrix(num_vertices_antigo+1,num_vertices_antigo, matriz_antiga);
    
    __dealloc_matrix(num_vertices_antigo, matriz_antiga);
    matriz_antiga = NULL;
@@ -135,7 +152,7 @@ bool add_vertex(const int num_vertice, Graph* graph){
        graph->vertex_list = new_array;
    }
 
-   graph->vertex_list[graph->vertex_num -1] = num_vertice;
+   graph->vertex_list[graph->vertex_num -1] = vertex_num;
    return graph;
 }
 
@@ -147,15 +164,15 @@ bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph){
      if (vertex1 == vertex2)
         err_exit("Os 2 vertices nao podem ser iguais, vertice1: %d , vertice2: %d", vertex1, vertex2);
 
-     int ver1_matrix_posi = __find_vertex_index(vertex1,graph);
-     int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
+     const int ver1_matrix_posi = __find_vertex_index(vertex1,graph);
+     const int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
      if (ver1_matrix_posi == -1 || ver2_matrix_posi == -1){
          warn_printf("nao voi possivel achar o vertice 1 ou vertice 2");
          return false;
      }
     
 
-     int edge = graph->matrix[ver1_matrix_posi][ver2_matrix_posi];
+     const int edge = graph->matrix[ver1_matrix_posi][ver2_matrix_posi];
 
      if(edge != NO_EDGE)
         return true;
@@ -193,8 +210,8 @@ bool remove_edge(const int vertex1, const int vertex2, Graph* graph){
      if (vertex1 == vertex2)
         err_exit("Os 2 vertices nao podem ser iguais, vertice1: %d , vertice2: %d", vertex1, vertex2);
 
-     int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
-     int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
+     const int ver1_matrix_posi = __find_vertex_index(vertex1,graph); //achar a posicao na matrix correspondente dos vertices
+     const int ver2_matrix_posi = __find_vertex_index(vertex2,graph);
      if (ver1_matrix_posi == -1 || ver2_matrix_posi == -1){
          warn_printf("nao voi possivel achar o vertice 1 ou vertice 2");
          return false;
@@ -250,7 +267,7 @@ int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size) {
      const int vertex_num = graph->vertex_num;
      int arr_arestas[vertex_num]; //vamos declarar um array temporario na stack para guardar a lista de tam maximo vertex_num
 
-     int ver_matrix_posi = __find_vertex_index(vertex,graph);
+     const int ver_matrix_posi = __find_vertex_index(vertex,graph);
      assert(ver_matrix_posi != -1); //caso o vertice nao existe gera um erro
      
      int aresta;
@@ -302,7 +319,7 @@ int* get_vertex_list(const Graph* graph, int* get_list_size){
         return NULL;
      }
      
-     int num_vertex = graph->vertex_num;
+     const int num_vertex = graph->vertex_num;
      *get_list_size = num_vertex; //coloca o tamanho da lista na variavel apontada por esse ponteiro
 
      int* return_list = (int*)  malloc(sizeof(int) * num_vertex);
@@ -318,7 +335,7 @@ int* get_vertex_list(const Graph* graph, int* get_list_size){
 int** adjacency_matrix(const Graph* graph){
      assert(graph);
 
-     int** return_ma = __realloc_matrix(graph->vertex_num,graph->vertex_num,graph->matrix); //copia a matriz e aloca memoria para a nova copia dela
+     int** return_ma = __alloc_matrix(graph->vertex_num,graph->vertex_num,graph->matrix); //copia a matriz e aloca memoria para a nova copia dela
      assert(return_ma);
 
      return return_ma;
@@ -346,7 +363,7 @@ void print_info(const Graph* graph){
     if(graph->vertex_num== 0)
        return;
 
-    int vertex_num = graph->vertex_num;
+    const int vertex_num = graph->vertex_num;
     int* vertex_list = graph->vertex_list;
     printf("\n     "); 
     for (int i = 0; i < vertex_num; i++){
@@ -392,28 +409,20 @@ void print_vertex_list(const Graph* graph){
    printf("\n");
 }
 
-
+/*
 int main(){
 
-   Graph* g1 = graph_create();
-   add_vertex(5,g1);
-   add_vertex(6,g1);
-   add_vertex(7,g1);
-   add_vertex(8,g1);
-
- 
-   add_edge(5,6,7,g1);
-   add_edge(5,7,7,g1);
-
-
+   Graph* g1 = graph_create(4);
+   
+   add_edge(3,2,5,g1);
+   add_edge(1,2,5,g1);
    print_info(g1);
-
-   int ** matrix = adjacency_matrix(g1);
    remove_edge_smallest_weight(g1);
 
-   print_info(g1);
-
    
+   printf("aresta existe %d \n",exist_edge(3,2,g1));
+  // printf("num arestas %d \n",number_of_vertexes(g1));
 
+   print_info(g1);
 }
-
+*/
