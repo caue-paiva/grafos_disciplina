@@ -5,6 +5,7 @@
 
 # ignore folsers
 .vscode
+out
 
 # allow .out files in specific folder
 !/exerc1/test/*.out
