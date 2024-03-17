@@ -146,8 +146,8 @@ bool add_vertex(const int vertex_num, Graph* graph){
 
    if ((graph->vertex_num % VERTEX_LIST_CHUNK) == 0) { //estamos no limite da capacidade do array de vertices
        d_printf("realloc");
-       int old_size = sizeof(graph->vertex_list)/sizeof(int);
-       int* new_array = (int*) realloc(graph->vertex_list, old_size + VERTEX_LIST_CHUNK);
+       const int old_size = graph->vertex_num; //tamanho antiga, um multiplo de VERTE_LIST_CHUNK
+       int* new_array = (int*) realloc(graph->vertex_list, old_size  + VERTEX_LIST_CHUNK);
        assert(new_array);
        graph->vertex_list = new_array;
    }
