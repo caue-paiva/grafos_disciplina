@@ -25,7 +25,7 @@ for input_file in test/*.in; do
     # run the program with the input file and save the output to a temporary file
     # 10-second timeout using 'timeout' command
     start_time=$(date +%s)
-    if timeout 10s ./out/main < $input_file > test/temp_out.txt; then
+    if timeout 10s ./grafos < $input_file > test/temp_out.txt; then
         end_time=$(date +%s)
         elapsed_time=$(( end_time - start_time ))
 

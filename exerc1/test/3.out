@@ -1,0 +1,147 @@
+Digite o numero de vertices inicial do grafo: 
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: O grafo tem 5 vertices.
+
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: Digite o numero do vertice que deseja adicionar: 
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: 
+     1  2  3  4  5  8  
+     ------------------
+1: [ -1 -1 -1 -1 -1 -1 ]
+2: [ -1 -1 -1 -1 -1 -1 ]
+3: [ -1 -1 -1 -1 -1 -1 ]
+4: [ -1 -1 -1 -1 -1 -1 ]
+5: [ -1 -1 -1 -1 -1 -1 ]
+8: [ -1 -1 -1 -1 -1 -1 ]
+Numero de vertices: 6 , Numero de arestas bi-direcionais: 0 
+
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: Digite os numeros dos vertices que deseja adicionar uma aresta: Digite o peso da aresta: 
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: Digite os numeros dos vertices para verificar se existe aresta entre eles: Existe aresta.
+
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: Digite os numeros dos vertices para verificar se existe aresta entre eles: Nao existe aresta.
+
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: 
+     1  2  3  4  5  8  
+     ------------------
+1: [ -1  3 -1 -1 -1 -1 ]
+2: [  3 -1 -1 -1 -1 -1 ]
+3: [ -1 -1 -1 -1 -1 -1 ]
+4: [ -1 -1 -1 -1 -1 -1 ]
+5: [ -1 -1 -1 -1 -1 -1 ]
+8: [ -1 -1 -1 -1 -1 -1 ]
+Numero de vertices: 6 , Numero de arestas bi-direcionais: 1 
+
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: Digite os numeros dos vertices que deseja adicionar uma aresta: Digite o peso da aresta: 
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: Digite o numero do vertice que deseja mostrar a lista de adjacencia: 1 3 
+
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: O grafo tem 6 vertices.
+
+OPCOES
+1 - Adicionar vertice
+2 - Adicionar aresta
+3 - Remover aresta
+4 - Mostrar vertices e arestas
+5 - Mostrar lista de vertices adjacentes
+6 - Remover aresta de menor weight
+7 - Mostrar numero de vertices
+8 - Verificar existencia de aresta
+0 - Sair
+Digite sua opcao: 

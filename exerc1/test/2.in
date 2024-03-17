@@ -1,0 +1,18 @@
+4
+8 1 2
+2 1 2
+5
+2 2 3
+3
+2 3 4
+6
+5 2
+4
+6
+4
+3 1 2
+8 1 2
+4
+0
+
+Neste teste, uma serie de operacoes e realizada no grafo. Comecando com 4 vertices iniciais, sao adicionadas arestas, verificado se determinadas arestas existem, exibidos os vertices adjacentes a um vertice especifico, exibidos os pesos das arestas, removida a aresta de menor peso e, por fim, removida uma aresta especifica. O teste termina com a impressao do grafo e a saida do programa.

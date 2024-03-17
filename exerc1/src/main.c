@@ -16,7 +16,7 @@ int main() {
         printf("3 - Remover aresta\n");
         printf("4 - Mostrar vertices e arestas\n");
         printf("5 - Mostrar lista de vertices adjacentes\n");
-        printf("6 - Remover vertice de menor weight\n");
+        printf("6 - Remover aresta de menor weight\n");
         printf("7 - Mostrar numero de vertices\n");
         printf("8 - Verificar existencia de aresta\n");
         printf("0 - Sair\n");
@@ -94,3 +94,4 @@ int main() {
 
     return 0;
 }
+

@@ -1,0 +1,14 @@
+5
+7
+1 8
+4
+2 1 2 3
+8 1 2
+8 2 3
+4
+2 2 3 5
+5 2
+7
+0
+
+Neste caso, sao realizadas diversas operacoes no grafo. Comecando com 5 vertices iniciais, e exibido o numero de vertices, adicionado um novo vertice, adicionadas arestas entre vertices com pesos especificos, verificado se certas arestas existem, exibidos os vertices adjacentes a um vertice especifico e, por fim, e exibido o numero de vertices novamente antes da saida do programa.

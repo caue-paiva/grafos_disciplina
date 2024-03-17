@@ -51,9 +51,9 @@ All test cases are located in the test folder. You can run them using the provid
 
 | Names                       | USP Number |
 | :---------------------------| ---------- |
-| Luiz Felipe Diniz Costa     | 13782032   |
 | Cauê Paiva Lira             | 14675416   |
-| Leticia                     | 00000000   |
+| Letícia Barbosa Neves       | 14588659   |
+| Luiz Felipe Diniz Costa     | 13782032   |
 | Pedro                       | 00000000   |
 | João Pedro                  | 00000000   |
 

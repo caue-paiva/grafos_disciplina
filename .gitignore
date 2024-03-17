@@ -1,11 +1,13 @@
 # ignore files
 *.o
-*.out
 *.exe
 *.zip
-# ignore folsers
+
+# ignore folders
 .vscode
+/exerc1/grafos
 out
+
 
 # allow .out files in specific folder
 !/exerc1/test/*.out
