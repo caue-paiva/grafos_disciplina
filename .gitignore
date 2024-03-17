@@ -2,7 +2,7 @@
 *.o
 *.out
 *.exe
-
+*.zip
 # ignore folsers
 .vscode
 out
