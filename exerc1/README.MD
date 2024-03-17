@@ -19,12 +19,6 @@ You can compile and execute the program manually through the Makefile provided.
     make run
     ```
 
-3. To delete the generated files, run:
-
-    ```bash
-    make clean
-    ```
-
 Alternatively, you can use the provided shell script to run all test cases present in the test folder and indicate which cases passed.
 
 1. Compile and run the program using the provided Makefile:
