@@ -1,15 +1,15 @@
 # directory for source files
 SRC_DIR = src
-INC_DIR = inc
 OUT_DIR = out
 
-# compiller and flags
+# compiler and flags
 CC = gcc
-CFLAGS = -Wall -I$(INC_DIR) -std=c99
+CFLAGS = -Wall -std=c99
 
 # font and object files
 SOURCES := $(wildcard $(SRC_DIR)/*.c)
 OBJECTS := $(patsubst $(SRC_DIR)/%.c, $(OUT_DIR)/%.o, $(SOURCES))
+HEADERS := $(wildcard $(SRC_DIR)/*.h)
 
 # executable name
 EXECUTABLE = $(OUT_DIR)/main
@@ -17,12 +17,12 @@ EXECUTABLE = $(OUT_DIR)/main
 # zip file name
 ZIP_FILE = project.zip
 
-# file list to zip
-ZIP_FILES := $(SOURCES) $(wildcard $(INC_DIR)/*.h) Makefile
+# file list to zip (including .h files from SRC_DIR now)
+ZIP_FILES := $(SOURCES) $(HEADERS) Makefile
 
 # compile rules
 $(OUT_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@ 
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # links
 $(EXECUTABLE): $(OBJECTS)
@@ -41,7 +41,7 @@ run: $(EXECUTABLE)
 
 # zip creation
 zip:
-	zip $(ZIP_FILE) $(ZIP_FILES)
+	zip -r $(ZIP_FILE) $(ZIP_FILES)
 
 # compile
-all: $(EXECUTABLE) 
+all: $(EXECUTABLE)
