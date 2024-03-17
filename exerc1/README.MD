@@ -43,12 +43,12 @@ All test cases are located in the test folder. You can run them using the provid
 
 ## Authors
 
-| Names                       | USP Number |
-| :---------------------------| ---------- |
-| Cauê Paiva Lira             | 14675416   |
-| Letícia Barbosa Neves       | 14588659   |
-| Luiz Felipe Diniz Costa     | 13782032   |
-| Pedro Louro Fernandes       | 13672446   |
-| João Pedro                  | 00000000   |
+| Names                         | USP Number |
+| :---------------------------  | ---------- |
+| Cauê Paiva Lira               | 14675416   |
+| Letícia Barbosa Neves         | 14588659   |
+| Luiz Felipe Diniz Costa       | 13782032   |
+| Pedro Louro Fernandes         | 13672446   |
+| João Pedro Alves Notari Godoy | 14582076   |
 
 
