@@ -33,17 +33,25 @@ Alternatively, you can use the provided shell script to run all test cases prese
     ./runTests.sh
     ```
 
-### How to Use
 
-Once the program is running, follow the on-screen menu prompts to interact with the graph. You can add vertices, add edges between vertices, remove edges, display information about the graph, and perform various other operations.
+### Implementação do TAD Grafos
+Um TAD para grafos foi implementado com todas as funcionalidades requeridas, permitindo a criação de um grafo com N vértices, adição de vértices e arestas, além da verificação da existência de arestas, entre outras funcionalidades.
 
-## Test Cases
+As arestas dos grafos possuem pesos, o que possibilita a implementação de uma função que remove a aresta de menor peso do grafo. O valor -1 indica a inexistência de uma aresta.
 
-All test cases are located in the test folder. You can run them using the provided shell script (`runTests.sh`).
+O grafo foi implementado usando uma matriz de adjacência, devido à sua eficiência para adicionar e verificar arestas, bem como pela sua simplicidade. Um sistema que registra os números de cada vértice e sua ordem/index de inserção é utilizado, de modo que a matriz não precisa ter o tamanho do número do vértice adicionado.
 
-## Authors
+Por exemplo: Um grafo com vértices [1,2,3] terá um novo vértice de número 10 adicionado. Então, a lista de vértices será [1,2,3,10], e o vértice 10 será indexado na matriz na linha e coluna de número 3. Dessa forma, a matriz cresce de 3x3 para 4x4, e não para 10x10.
 
-| Names                         | USP Number |
+### Como Usar
+Uma vez que o programa esteja em execução, siga as instruções do menu na tela para interagir com o grafo. Você pode adicionar vértices, adicionar arestas entre vértices, remover arestas, exibir informações sobre o grafo e realizar várias outras operações.
+
+## Casos de Teste
+Todos os casos de teste estão localizados na pasta de testes. Você pode executá-los usando o script de shell fornecido (runTests.sh).
+
+## Autores
+
+| Nomes                         |    NUSP    |
 | :---------------------------  | ---------- |
 | Cauê Paiva Lira               | 14675416   |
 | Letícia Barbosa Neves         | 14588659   |
