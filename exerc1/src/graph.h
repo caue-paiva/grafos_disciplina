@@ -1,5 +1,5 @@
-#ifndef GRAFO_LA
-   #define GRAFO_LA
+#ifndef GRAFO_LA_H
+   #define GRAFO_LA_H
 
     #include "stdio.h"
     #include "stdlib.h"
