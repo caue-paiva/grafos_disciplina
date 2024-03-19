@@ -25,7 +25,7 @@
 
     Graph* graph_create();  //cria um grafo vazio
     void remove_graph(Graph** graph); //destroi o grafo e libera a memoria
-    //bool add_vertex(const int vertex_num, Graph* graph); //add um vertice no grafo
+    //bool add_vertex(const int vertex_num, Graph* graph); //add um vertice no grafo, não é mais usada
 
     bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph); //verifica se uma aresta existe
     bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* graph); //add uma aresta entre 2 vertices
