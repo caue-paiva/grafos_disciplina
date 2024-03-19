@@ -26,7 +26,11 @@ make run  #vai executar o programa
 Uma vez que o programa esteja em execução, siga as instruções do menu na tela para interagir com o grafo. Você pode adicionar vértices, adicionar arestas entre vértices, remover arestas, exibir informações sobre o grafo e realizar várias outras operações.
 
 ## Casos de Teste
-Todos os casos de teste estão localizados na pasta de testes. Você pode executá-los usando o script de shell fornecido (runTests.sh).
+Todos os casos de teste estão localizados na pasta de testes. Você pode executá-los usando os comandos:
+
+```bash
+./grafos < /test/1.in #ou o 2.in
+```
 
 ## Autores
 
