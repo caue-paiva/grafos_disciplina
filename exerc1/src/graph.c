@@ -145,7 +145,6 @@ bool add_vertex(const int vertex_num, Graph* graph){
    graph->vertex_num += 1;
 
    if ((graph->vertex_num % VERTEX_LIST_CHUNK) == 0) { //estamos no limite da capacidade do array de vertices
-       d_printf("realloc");
        const int old_size = graph->vertex_num; //tamanho antiga, um multiplo de VERTE_LIST_CHUNK
        int* new_array = (int*) realloc(graph->vertex_list, old_size  + VERTEX_LIST_CHUNK);
        assert(new_array);
@@ -351,11 +350,13 @@ void print_adj_vertex(const int vertex, const Graph*graph){
      int* list = get_adj_vertex(vertex,graph,&size);
      if (list == NULL)
          return;
-
+     
+     printf("\nVertices adjacentes ao %d: ",vertex);
      for (int i = 0; i < size; i++){
           printf("%d ", list[i]);
      }
      printf("\n");
+     free(list);
 }
 
 void print_info(const Graph* graph){
@@ -407,6 +408,7 @@ void print_vertex_list(const Graph* graph){
    }
 
    printf("\n");
+   free(vertex_list);
 }
 
 /*

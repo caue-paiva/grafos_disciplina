@@ -8,22 +8,12 @@
 
     //macros para null handling, debug e outras funcionalidades
     #define assert_2ptrs(p1,p2) assert(p1); assert(p2);
-    #define assert_3ptrs(p1,p2,p3) assert_2ptrs(p1,p2); assert(p3);
-
-    #define max(x, y)  ((x) > (y) ? (x) : (y))
-    #define min(x, y)  ((x) > (y) ? (y) : (x))
 
     #define err_exit(...) do {\
             printf("[ERROR] (FILE: %s , LINE: %d) -- ",__FILE__,__LINE__);\
             printf(__VA_ARGS__);\
             printf("\nExit(1)\n");\
             exit(1);\
-    } while(0)
-   
-    #define d_printf(...) do {\
-            printf("[DEBUG] (FILE: %s , LINE: %d) -- ",__FILE__,__LINE__);\
-            printf(__VA_ARGS__);\
-            printf("\n");\
     } while(0)
    
     #define warn_printf(warning) printf("[WARNING] %s (FILE: %s , LINE: %d) -- \n", (warning) ,__FILE__,__LINE__);\
@@ -35,7 +25,7 @@
 
     Graph* graph_create();  //cria um grafo vazio
     void remove_graph(Graph** graph); //destroi o grafo e libera a memoria
-    bool add_vertex(const int vertex_num, Graph* graph); //add um vertice no grafo
+    //bool add_vertex(const int vertex_num, Graph* graph); //add um vertice no grafo
 
     bool exist_edge(const int vertex1 , const int vertex2, const Graph* graph); //verifica se uma aresta existe
     bool add_edge(const int vertex1, const int vertex2, const int weight ,Graph* graph); //add uma aresta entre 2 vertices
