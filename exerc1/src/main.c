@@ -10,14 +10,14 @@ int main() {
     int opcao = -1;
     while (opcao != 0) {
 
-        printf("--------------------------");
+        printf("\n--------------------------");
         printf("\nOPCOES\n");
         printf("1 - Adicionar vertice\n");
         printf("2 - Adicionar aresta\n");
         printf("3 - Remover aresta\n");
         printf("4 - Mostrar vertices e arestas\n");
         printf("5 - Mostrar lista de vertices adjacentes\n");
-        printf("6 - Remover aresta de menor weight\n");
+        printf("6 - Remover aresta de menor peso\n");
         printf("7 - Mostrar numero de vertices\n");
         printf("8 - Verificar existencia de aresta\n");
         printf("0 - Sair\n");
