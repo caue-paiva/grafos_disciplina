@@ -35,12 +35,12 @@
     int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size); //retorna uma lista de vertices adjancentes a um vertice
     void print_adj_vertex(const int vertex, const Graph*graph); //printa a lista da funcao acima
     
-    void print_info(const Graph* graph); //imprime no terminal um desenho da matriz de adjancencia do grafo
+    void print_info(const Graph* graph); //imprime no terminal um desenho da matriz de adjancencia do grafo e informações como numero de vértices e arestas
    
     int number_of_vertexes(const Graph* graph); //retorna numero de vertices
     int number_of_edges(const Graph* graph); //retorna numero de arestas
    
-    int* get_vertex_list(const Graph* graph, int* get_list_size); //retorna uma lista de vertices no grafo
+    int* get_vertex_list(const Graph* graph, int* get_list_size); //retorna uma lista de vertices no grafo, com memoria alocada
     void print_vertex_list(const Graph* graph); //imprime lista acima
 
     int** adjacency_matrix(const Graph* graph); //retorna a matriz de adjacencia (uma copia com memoria alocada)

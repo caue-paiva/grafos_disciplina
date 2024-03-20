@@ -283,7 +283,7 @@ int* get_adj_vertex(const int vertex, const Graph* graph, int* get_list_size) {
 
      //vamos alocar memoria na heap para a lista final, nesse caso vamos alocar apenas memoria suficiente para as arestas existentes e não para o vertex_num (maximo)
      if (numero_aresta == 0){
-         warn_printf("Nao existem arestas conectadas a esse vertice, retornado um ponteiro NULL");
+        // printf("Nao existem arestas conectadas ao vertice %d \n",vertex);
          return NULL;
      }
    
@@ -348,14 +348,17 @@ void print_adj_vertex(const int vertex, const Graph*graph){
      int size;
 
      int* list = get_adj_vertex(vertex,graph,&size);
-     if (list == NULL)
+     if (list == NULL){
+         printf("\nVertices adjacentes ao %d: Nenhum",vertex);
          return;
+     }
+        
      
      printf("\nVertices adjacentes ao %d: ",vertex);
      for (int i = 0; i < size; i++){
           printf("%d ", list[i]);
      }
-     printf("\n");
+   
      free(list);
 }
 
@@ -390,7 +393,11 @@ void print_info(const Graph* graph){
       
     }
 
-    printf("Numero de vertices: %d , Numero de arestas bi-direcionais: %d \n", number_of_vertexes(graph), number_of_edges(graph));
+    for (int i = 0; i < vertex_num; i++){
+         print_adj_vertex(graph->vertex_list[i], graph);
+    }
+
+    printf("\nNumero de vertices: %d , Numero de arestas bi-direcionais: %d \n", number_of_vertexes(graph), number_of_edges(graph));
 }
 
 void print_vertex_list(const Graph* graph){
