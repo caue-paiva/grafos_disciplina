@@ -1,4 +1,5 @@
-Digite o numero de vertices inicial do grafo: 
+Digite o numero de vertices inicial do grafo:
+-------------------------- 
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -22,8 +23,20 @@ Digite sua opcao:
 8: [ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ]
 9: [ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ]
 10: [ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ]
+
+Vertices adjacentes ao 1: Nenhum
+Vertices adjacentes ao 2: Nenhum
+Vertices adjacentes ao 3: Nenhum
+Vertices adjacentes ao 4: Nenhum
+Vertices adjacentes ao 5: Nenhum
+Vertices adjacentes ao 6: Nenhum
+Vertices adjacentes ao 7: Nenhum
+Vertices adjacentes ao 8: Nenhum
+Vertices adjacentes ao 9: Nenhum
+Vertices adjacentes ao 10: Nenhum
 Numero de vertices: 10 , Numero de arestas bi-direcionais: 0 
 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -35,6 +48,7 @@ OPCOES
 8 - Verificar existencia de aresta
 0 - Sair
 Digite sua opcao: Digite os numeros dos vertices que deseja adicionar uma aresta: Digite o peso da aresta: 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -58,8 +72,20 @@ Digite sua opcao:
 8: [ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ]
 9: [ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ]
 10: [ -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 ]
+
+Vertices adjacentes ao 1: 2, 
+Vertices adjacentes ao 2: 1, 
+Vertices adjacentes ao 3: Nenhum
+Vertices adjacentes ao 4: Nenhum
+Vertices adjacentes ao 5: Nenhum
+Vertices adjacentes ao 6: Nenhum
+Vertices adjacentes ao 7: Nenhum
+Vertices adjacentes ao 8: Nenhum
+Vertices adjacentes ao 9: Nenhum
+Vertices adjacentes ao 10: Nenhum
 Numero de vertices: 10 , Numero de arestas bi-direcionais: 1 
 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta

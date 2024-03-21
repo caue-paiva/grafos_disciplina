@@ -2,7 +2,7 @@
 *.o
 *.exe
 *.zip
-*.out
+
 
 # ignore folders
 .vscode

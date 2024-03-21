@@ -1,4 +1,5 @@
 Digite o numero de vertices inicial do grafo: 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -11,6 +12,7 @@ OPCOES
 0 - Sair
 Digite sua opcao: Digite os numeros dos vertices para verificar se existe aresta entre eles: Nao existe aresta.
 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -22,6 +24,7 @@ OPCOES
 8 - Verificar existencia de aresta
 0 - Sair
 Digite sua opcao: Digite os numeros dos vertices que deseja adicionar uma aresta: Digite o peso da aresta: 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -33,6 +36,7 @@ OPCOES
 8 - Verificar existencia de aresta
 0 - Sair
 Digite sua opcao: Digite os numeros dos vertices que deseja adicionar uma aresta: Digite o peso da aresta: 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -44,6 +48,7 @@ OPCOES
 8 - Verificar existencia de aresta
 0 - Sair
 Digite sua opcao: Digite os numeros dos vertices que deseja adicionar uma aresta: Digite o peso da aresta: 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -54,8 +59,9 @@ OPCOES
 7 - Mostrar numero de vertices
 8 - Verificar existencia de aresta
 0 - Sair
-Digite sua opcao: Digite o numero do vertice que deseja mostrar a lista de adjacencia: 1 3 
-
+Digite sua opcao: Digite o numero do vertice que deseja mostrar a lista de adjacencia:
+Vertices adjacentes ao 2: 1, 3, 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -73,8 +79,14 @@ Digite sua opcao:
 2: [  5 -1  3 -1 ]
 3: [ -1  3 -1  6 ]
 4: [ -1 -1  6 -1 ]
+
+Vertices adjacentes ao 1: 2, 
+Vertices adjacentes ao 2: 1, 3, 
+Vertices adjacentes ao 3: 2, 4, 
+Vertices adjacentes ao 4: 3, 
 Numero de vertices: 4 , Numero de arestas bi-direcionais: 3 
 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -86,6 +98,7 @@ OPCOES
 8 - Verificar existencia de aresta
 0 - Sair
 Digite sua opcao: 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -103,8 +116,14 @@ Digite sua opcao:
 2: [  5 -1 -1 -1 ]
 3: [ -1 -1 -1  6 ]
 4: [ -1 -1  6 -1 ]
+
+Vertices adjacentes ao 1: 2, 
+Vertices adjacentes ao 2: 1, 
+Vertices adjacentes ao 3: 4, 
+Vertices adjacentes ao 4: 3,
 Numero de vertices: 4 , Numero de arestas bi-direcionais: 2 
 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -116,6 +135,7 @@ OPCOES
 8 - Verificar existencia de aresta
 0 - Sair
 Digite sua opcao: Digite os numeros dos vertices que deseja remover uma aresta: 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -128,6 +148,7 @@ OPCOES
 0 - Sair
 Digite sua opcao: Digite os numeros dos vertices para verificar se existe aresta entre eles: Nao existe aresta.
 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
@@ -145,8 +166,14 @@ Digite sua opcao:
 2: [ -1 -1 -1 -1 ]
 3: [ -1 -1 -1  6 ]
 4: [ -1 -1  6 -1 ]
+
+Vertices adjacentes ao 1: Nenhum
+Vertices adjacentes ao 2: Nenhum
+Vertices adjacentes ao 3: 4, 
+Vertices adjacentes ao 4: 3, 
 Numero de vertices: 4 , Numero de arestas bi-direcionais: 1 
 
+--------------------------
 OPCOES
 1 - Adicionar vertice
 2 - Adicionar aresta
