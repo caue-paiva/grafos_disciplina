@@ -40,5 +40,6 @@ Todos os casos de teste estão localizados na pasta de testes. Você pode execut
 | Letícia Barbosa Neves         | 14588659   |
 | Luiz Felipe Diniz Costa       | 13782032   |
 | João Pedro Alves Notari Godoy | 14582076   |
+| Yvis Freire Silva Santos      | 12608793   |
 
 
