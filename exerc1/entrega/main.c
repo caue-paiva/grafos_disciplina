@@ -1,5 +1,16 @@
 #include "graph.h"
 
+/*
+Autores
+| Nomes                         |    NUSP    |
+| :---------------------------  | ---------- |
+| Cauê Paiva Lira               | 14675416   |
+| Letícia Barbosa Neves         | 14588659   |
+| Luiz Felipe Diniz Costa       | 13782032   |
+| João Pedro Alves Notari Godoy | 14582076   |
+| Yvis Freire Silva Santos      | 12608793   |
+*/
+
 int main() {
     int num_vertice;
     printf("Digite o numero de vertices inicial do grafo: ");
