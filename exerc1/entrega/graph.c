@@ -357,6 +357,7 @@ void print_adj_vertex(const int vertex, const Graph*graph){
      for (int i = 0; i < size; i++){
           printf("%d, ", list[i]);
      }
+   
      free(list);
 }
 
