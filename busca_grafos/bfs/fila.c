@@ -84,6 +84,3 @@ Fila_t fila_comeco(const Fila* fila){
    return fila->elementos[fila->comeco];
 }
 
-int main(){
-   
-}

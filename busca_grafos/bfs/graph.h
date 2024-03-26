@@ -23,7 +23,7 @@
 
     typedef struct graph Graph;
 
-    Graph* graph_create();  //cria um grafo vazio
+    Graph* graph_create(const int size );  //cria um grafo vazio
     void remove_graph(Graph** graph); //destroi o grafo e libera a memoria
     bool add_vertex(const int vertex_num, Graph* graph); //add um vertice no grafo, não é mais usada
 

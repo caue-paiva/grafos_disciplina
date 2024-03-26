@@ -5,7 +5,7 @@
 
 
    #define INF 100000000
-   #define NO_PARENT -2
+   #define NO_PARENT -1
 
    typedef enum {
       WHITE,
