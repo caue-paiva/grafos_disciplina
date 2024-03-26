@@ -57,7 +57,7 @@ void bfs_tree_from_vertex(Graph* graph, const int start_vertex){
 
 }
 
-//função onde é tido que o grafo contem vertices com numeros em sequência. Ex: 1,2,3,4,5
+//função onde é tido que o grafo contem vertices com numeros em sequência começando do 1. Ex: 1,2,3,4,5
 void bfs_sequen_tree_from_vertex(Graph* graph, const int start_vertex){
    assert(graph);
 
